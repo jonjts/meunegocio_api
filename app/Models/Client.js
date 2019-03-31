@@ -12,6 +12,7 @@ class Client extends Model {
         return {
             company_id: 'required',
             name: 'required',
+            email: 'email',
             rg: "number",
             cpf: [
                 rule('regex', /^((\d{3}).(\d{3}).(\d{3})-(\d{2}))*$/),
@@ -25,7 +26,12 @@ class Client extends Model {
             'name.required': 'Informe o nome',
             'rg.required': 'O RG deve ser um número',
             'cpf.regex': 'Informe um CPF válido',
+            'email.email': 'Informe um email válido',
         }
+    }
+
+    phones(){
+        return this.hasMany('App/Models/Phone');
     }
 }
 

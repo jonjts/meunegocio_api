@@ -7,7 +7,8 @@ class PhoneSchema extends Schema {
   up () {
     this.create('phones', (table) => {
       table.increments();
-      table.string('number');
+      table.string('number').
+        notNullable();
       table.integer('client_id')
         .unsigned()
         .notNullable()

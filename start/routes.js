@@ -28,7 +28,11 @@ Route.delete('/users/companies/:id/member', 'UserController.removeMemberToCompan
 Route.post('/sessions/signin', 'SessionController.create');
 
 //Company routes
-Route.get('/companies/:id/clients', 'CompanyController.getClients');
-Route.post('/companies/:id/clients', 'CompanyController.createClient');
-Route.put('/companies/:id/clients/:client_id', 'CompanyController.updateClient');
-
+Route.get('/companies/:id/clients', 'CompanyController.getClients')
+    .middleware(['inCompany']);
+Route.post('/companies/:id/clients', 'CompanyController.createClient')
+    .middleware(['inCompany']);
+Route.put('/companies/:id/clients/:client_id', 'CompanyController.updateClient')
+    .middleware(['inCompany']);
+Route.post('/companies/:id/clients/:client_id/phones', 'CompanyController.addPhone')
+    .middleware(['inCompany']);
