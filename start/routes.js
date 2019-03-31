@@ -22,7 +22,7 @@ Route.get('/users/companies', 'UserController.getCompanies');
 Route.post('/users/companies', 'UserController.createCompany');
 Route.put('/users/companies/:id', 'UserController.updateCompany');
 Route.post('/users/companies/:id/members', 'UserController.addMemberToCompany');
-Route.delete('/users/companies/:id/member', 'UserController.removeMemberToCompany');
+Route.delete('/users/companies/:id/members', 'UserController.removeMemberToCompany');
 
 //Session routes
 Route.post('/sessions/signin', 'SessionController.create');

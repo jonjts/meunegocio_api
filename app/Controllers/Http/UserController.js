@@ -27,7 +27,6 @@ class UserController {
         const user = await auth.getUser();
         var company = {...data, created_by: user.id}
         const validation = await validate(company, Company.rules, Company.messages)
-
         if (validation.fails()) {
             return response.status(500).send(validation.messages())
         }
@@ -35,17 +34,13 @@ class UserController {
 
     }
 
-    async updateCompany({ request, params, auth}){
+    async updateCompany({ request, params, auth, response}){
         const data = request.only(['title'])
         const user = await auth.getUser();
         const company = await user.companies().where('id', params.id).first();
         company.title = data.title;
-        const validation = await validate(company, Company.rules, Company.messages)
-
-        if (validation.fails()) {
-            return response.status(500).send(validation.messages())
-        }
-        company.save();
+        
+        await company.save();
         return company;
     }
 

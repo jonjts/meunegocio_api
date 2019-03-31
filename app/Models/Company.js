@@ -1,9 +1,9 @@
 'use strict'
 
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const { validate } = use('Validator');
 const Model = use('Model')
 const CompanyMember = use('App/Models/CompanyMember');
-
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 class Company extends Model {
 
     static boot(){
@@ -14,7 +14,14 @@ class Company extends Model {
                 company_id: companyInstance.id
             }
             await CompanyMember.create(companyMember);
+        });
+        this.addHook('beforeSave', async (companyInstance) => {
+            const validation = await validate(companyInstance.$attributes, this.rules, this.messages)
+            if (validation.fails()) {
+                throw new Error(JSON.stringify(validation.messages()));
+            }
         })
+
     }
 
     static get rules(){
@@ -33,7 +40,7 @@ class Company extends Model {
 
     
     user(){
-        return this.hasOne('App/Models/User');
+        return this.belongsTo('App/Models/User', 'created_by', 'id');
     }
 
     companyMembers(){

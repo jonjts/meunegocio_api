@@ -6,11 +6,11 @@ const Model = use('Model')
 class CompanyMember extends Model {
 
     company(){
-        return this.belongsToMany('App/Models/Company')
+        return this.belongsTo('App/Models/Company')
     }
 
-    users(){
-        return this.hasMany('App/Models/User');
+    user(){
+        return this.belongsTo('App/Models/User');
     }
 }
 
