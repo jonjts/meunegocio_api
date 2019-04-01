@@ -7,6 +7,17 @@ const { validate } = use('Validator');
 const { rule } = require('indicative')
 
 class Client extends Model {
+
+    static boot() {
+        super.boot();
+        this.addHook('beforeSave', async (userInstance) => {
+            const validation = await validate(userInstance.$attributes, this.rules, this.messages)
+            if (validation.fails()) {
+                throw new Error(JSON.stringify(validation.messages()));
+            }
+        })
+
+    }
     
     static get rules() {
         return {

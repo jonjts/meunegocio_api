@@ -1,4 +1,4 @@
-const { test, trait } = use('Test/Suite')('User Controller')
+const { test, trait } = use('Test/Suite')('User Endpoints')
 const User = use('App/Models/User')
 const Company = use('App/Models/Company');
 const CompanyMember = use('App/Models/CompanyMember');
@@ -28,7 +28,6 @@ test('fail to a new user', async ({ client }) => {
     .send({
       username: "test_username",
       email: "email@email",
-      password: "123456"
     })
     .end()
 
